@@ -19,11 +19,11 @@ public class ProductsController {
         this.productsRepository = productsRepository;
     }
 
-    @GetMapping("/")
+    @GetMapping
     public Iterable<ProductEntity> getProducts() {
         return productsRepository.findAll();
     }
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Void> createProduct(ProductEntity productEntity) {
         productsRepository.save(productEntity);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -44,5 +44,9 @@ public class ProductsController {
     public ResponseEntity<Void> deleteProductById(@PathVariable(value = "id") long id) {
         productsRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("/user/{id}")
+    public Iterable<ProductEntity> getUsers(@PathVariable(value = "id") long id) {
+        return productsRepository.findAllByUserId(id);
     }
 }

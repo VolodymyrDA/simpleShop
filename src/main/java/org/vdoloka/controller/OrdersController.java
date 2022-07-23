@@ -7,9 +7,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.vdoloka.Service.OrdersService;
 import org.vdoloka.entity.OrderEntity;
+import org.vdoloka.entity.ProductEntity;
+import org.vdoloka.entity.UserEntity;
 import org.vdoloka.repository.OrdersRepository;
-
-
 
 @RestController
 @RequestMapping("/orders")
@@ -24,20 +24,20 @@ public class OrdersController {
     }
 
 
-    @GetMapping("/")
-    public Iterable<OrderEntity> getProducts() {
+    @GetMapping("")
+    public Iterable<OrderEntity> getOrders() {
         return ordersRepository.findAll();
     }
 
     @PostMapping("/")
     public ResponseEntity<String> createOrder(OrderEntity orderEntity) {
         System.out.println(orderEntity);
-        boolean success=ordersService.save(orderEntity);
-        if (success){
-        return new ResponseEntity<>(HttpStatus.CREATED);}
+        boolean success = ordersService.save(orderEntity);
+        if (success) {
+            return new ResponseEntity<>(HttpStatus.CREATED);
+        }
         return ResponseEntity
                 .status(HttpStatus.NOT_ACCEPTABLE)
                 .body("Not enough money");
     }
-
 }

@@ -21,12 +21,12 @@ public class UsersController {
     }
 
 
-    @GetMapping("/")
+    @GetMapping
     public ResponseEntity<Iterable<UserEntity>> getUsers() {
         return new ResponseEntity<>(usersRepository.findAll(), HttpStatus.OK);
     }
 
-    @PostMapping("/")
+    @PostMapping
     public ResponseEntity<Void> createUser(@Valid UserEntity userEntity) {
         usersRepository.save(userEntity);
         return new ResponseEntity<>(HttpStatus.CREATED);
@@ -37,7 +37,7 @@ public class UsersController {
         return new ResponseEntity<>(usersRepository.findById(id), HttpStatus.OK);
     }
 
-    @PutMapping("/")
+    @PutMapping
     public ResponseEntity<UserEntity> updateUser(@Valid UserEntity userEntity) {
         usersRepository.save(userEntity);
         return new ResponseEntity<>(userEntity, HttpStatus.OK);
@@ -47,5 +47,9 @@ public class UsersController {
     public ResponseEntity<Void> deleteUserById(@PathVariable(value = "id") long id) {
         usersRepository.deleteById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @GetMapping("/product/{id}")
+    public Iterable<UserEntity> getProducts(@PathVariable(value = "id") long id) {
+        return usersRepository.findAllByProductId(id);
     }
 }
