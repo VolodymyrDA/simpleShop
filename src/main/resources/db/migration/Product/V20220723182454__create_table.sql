@@ -1,8 +1,7 @@
 create table if not exists products
 (
     id    serial
-        constraint products_id
-            primary key,
+        primary key,
     name  varchar(50) not null,
     price int         not null
 );

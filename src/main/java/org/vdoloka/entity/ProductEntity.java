@@ -3,6 +3,8 @@ package org.vdoloka.entity;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 @Table(name = "PRODUCTS")
@@ -12,11 +14,12 @@ public class ProductEntity {
     @GenericGenerator(name= "increment", strategy= "increment")
     @Column(length = 6, nullable = false)
     private Long id;
+    @NotEmpty(message = "Product name may not be empty")
     private String name;
+    @Digits(message = "Not a number", integer = 0, fraction = 0)
     private Integer price;
 
-    public ProductEntity(Long id, String name, Integer price) {
-        this.id = id;
+    public ProductEntity(String name, Integer price) {
         this.name = name;
         this.price = price;
     }
