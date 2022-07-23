@@ -1,0 +1,14 @@
+spring:
+  mvc:
+    format:
+      date-time: iso
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/shop
+    username: postgres
+    password: 123547
+    driver-class-name: org.postgresql.Driver
+
+  flyway:
+    enabled: true
+    baseline-on-migrate: true
