@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.vdoloka.Service.OrdersService;
 import org.vdoloka.entity.ProductEntity;
 import org.vdoloka.repository.ProductsRepository;
 
@@ -13,12 +14,12 @@ import java.util.Optional;
 @RequestMapping("products")
 public class ProductsController {
     private final ProductsRepository productsRepository;
-
+    private final OrdersService ordersService;
     @Autowired
-    public ProductsController(ProductsRepository productsRepository) {
+    public ProductsController(ProductsRepository productsRepository, OrdersService ordersService) {
         this.productsRepository = productsRepository;
+        this.ordersService = ordersService;
     }
-
     @GetMapping
     public Iterable<ProductEntity> getProducts() {
         return productsRepository.findAll();
@@ -42,7 +43,7 @@ public class ProductsController {
 
     @RequestMapping(value = {"/{id}"}, method = RequestMethod.DELETE)
     public ResponseEntity<Void> deleteProductById(@PathVariable(value = "id") long id) {
-        productsRepository.deleteById(id);
+        ordersService.deleteProductById(id);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
     @GetMapping("/user/{id}")

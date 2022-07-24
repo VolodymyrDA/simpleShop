@@ -24,7 +24,6 @@ public class OrdersService {
     }
     @Transactional
     public Boolean save(OrderEntity orderEntity) {
-        System.out.println(orderEntity);
         UserEntity user =usersRepository.findById(orderEntity.getUserId()).get();
         int userAmmountMoney = user.getAmmountMoney();
         int productPrice = productsRepository.findById(orderEntity.getProductId()).get().getPrice();
@@ -34,5 +33,10 @@ public class OrdersService {
             return true;
         }
         return false;
+    }
+    @Transactional
+    public void deleteProductById(long id) {
+        ordersRepository.deleteAllByProductId(id);
+        productsRepository.deleteById(id);
     }
 }

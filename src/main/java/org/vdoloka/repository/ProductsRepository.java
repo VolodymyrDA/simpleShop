@@ -10,3 +10,4 @@ public interface ProductsRepository extends CrudRepository<ProductEntity, Long> 
             "where o.user_id = :user_id", nativeQuery = true)
     Iterable<ProductEntity> findAllByUserId(@Param("user_id") long userId);
 }
+
